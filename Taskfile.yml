@@ -1,0 +1,28 @@
+version: '3'
+
+tasks:
+  install:
+    desc: "Create venv and install dependencies"
+    cmds:
+      - python3 -m venv venv
+      - ./venv/bin/pip install -r requirements.txt
+      - if [ ! -f yt-dlp ]; then git clone https://github.com/yt-dlp/yt-dlp; cd yt-dlp; ../venv/bin/pip install .; cd ..; fi
+    status:
+      - test -d venv
+      - test -d yt-dlp
+
+  dev:
+    desc: "Run the dev server"
+    deps:
+      - install
+    cmds:
+      - ./venv/bin/python -m ytdl_proxy
+
+  prod:
+    desc: "Run the hypercorn server"
+    deps:
+      - install
+    cmds:
+      - ./venv/bin/hypercorn ytdl_proxy:app --bind 0.0.0.0:{{.PORT}} --workers 1
+    vars:
+      PORT: '{{.PORT | default "8200"}}'

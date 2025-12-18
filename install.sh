@@ -17,6 +17,7 @@ git -C "${LOCATION}/ytdl" clone https://github.com/yt-dlp/yt-dlp
 
 echo "Copying ytdl-proxy"
 cp -r . "${LOCATION}/ytdl-proxy"
+mkdir "${LOCATION}/ytdl-proxy/out"
 
 echo "Creating virtual environment"
 python3 -m venv "${LOCATION}/venv"
