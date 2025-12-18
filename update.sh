@@ -11,4 +11,4 @@ cd ..
 cd ytdl-proxy
 git pull
 
-systemctl restart ytdl-proxy.sh
+systemctl restart ytdl-proxy.service
