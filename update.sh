@@ -5,10 +5,10 @@ set -e
 source venv/bin/activate
 
 cd yt-dlp
-git clone
+git pull
 pip3 install .
 cd ..
 cd ytdl-proxy
-git clone
+git pull
 
 systemctl restart ytdl-proxy.sh
