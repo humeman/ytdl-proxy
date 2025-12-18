@@ -42,7 +42,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=${LOCATION}/ytdl-proxy
+WorkingDirectory=${LOCATION}
 ExecStart=${LOCATION}/ytdl-proxy/update.sh
 EOF
 
@@ -67,7 +67,7 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=${LOCATION}/ytdl-proxy
+WorkingDirectory=${LOCATION}
 ExecStart=${LOCATION}/ytdl-proxy/start.sh
 Restart=always
 
