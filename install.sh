@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [[ $EUID -ne 0 ]]; then
     echo "error: run this as root"
     exit 1
@@ -13,7 +15,7 @@ echo "Installing to ${LOCATION}"
 mkdir -p "${LOCATION}"
 
 echo "Getting yt-dlp"
-git -C "${LOCATION}/ytdl" clone https://github.com/yt-dlp/yt-dlp
+git -C "${LOCATION}" clone https://github.com/yt-dlp/yt-dlp
 
 echo "Copying ytdl-proxy"
 cp -r . "${LOCATION}/ytdl-proxy"
@@ -27,7 +29,7 @@ old_dir=$(pwd)
 cd "${LOCATION}"
 source "venv/bin/activate"
 pip3 install -r ytdl-proxy/requirements.txt
-cd ytdl
+cd yt-dlp
 pip3 install .
 cd ..
 
@@ -40,6 +42,7 @@ After=network.target
 
 [Service]
 Type=oneshot
+WorkingDirectory=${LOCATION}/ytdl-proxy
 ExecStart=${LOCATION}/ytdl-proxy/update.sh
 EOF
 
@@ -64,6 +67,7 @@ After=network.target
 
 [Service]
 Type=simple
+WorkingDirectory=${LOCATION}/ytdl-proxy
 ExecStart=${LOCATION}/ytdl-proxy/start.sh
 Restart=always
 
