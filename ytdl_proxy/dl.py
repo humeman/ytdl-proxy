@@ -45,6 +45,8 @@ def _download_sync(req: DownloadRequest, fid: str) -> str:
             'outtmpl': f"out/{fid}",
             'noplaylist': True
         }
+        if req.postprocessor_args is not None and len(req.postprocessor_args) > 0:
+            opts["postprocessor_args"] = req.postprocessor_args
     elif req.format == "mp4":
         opts = {
             'format': 'bestvideo+bestaudio/best',
@@ -52,6 +54,9 @@ def _download_sync(req: DownloadRequest, fid: str) -> str:
             'outtmpl': f"out/{fid}",
             'noplaylist': True
         }
+        
+        if req.postprocessor_args:
+            raise ValueError("postprocessor doesn't run on videos, emit postprocessor_args")
     else:
         raise ValueError("unsupported format")
     
