@@ -1,8 +1,8 @@
 """Main entry point for ytdl-proxy API server."""
 
 from quart import Quart, jsonify, request
-from data import *
-from dl import AsyncDownloadManager, download, rand_fid, delete
+from .data import *
+from .dl import AsyncDownloadManager, download, rand_fid, delete
 import traceback
 import asyncio
 import time
