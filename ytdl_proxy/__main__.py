@@ -1,8 +1,8 @@
 """Main entry point for ytdl-proxy API server."""
 
 from quart import Quart, jsonify, request
-from .data import *
-from .dl import AsyncDownloadManager, download, rand_fid, delete
+from data import *
+from dl import AsyncDownloadManager, download, rand_fid, delete
 import traceback
 import asyncio
 import time
@@ -15,17 +15,14 @@ async_downloads = {}
 
 @app.before_serving
 async def start_background_task():
-    print(async_downloads)
     async def background_task():
         while True:
-            print(async_downloads)
             t = time.time()
             
             to_delete = []
             with async_downloads_lock:
                 for fid, dl in async_downloads.items():
                     if dl["time"] < t - 1800:
-                        print(f"deleting {fid}, timed out")
                         if dl["path"]:
                             await delete(dl["path"])
                         to_delete.append(fid)

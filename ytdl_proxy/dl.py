@@ -1,5 +1,5 @@
 import uuid
-from .data import DownloadRequest
+from data import DownloadRequest
 import aiofiles
 import asyncio
 import os

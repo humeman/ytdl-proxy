@@ -4,7 +4,7 @@ from typing import Optional, Literal
 class DownloadRequest(BaseModel):
     video: str = Field(..., description = "link to the video")
     format: str = Field(..., description = "resulting file format (mp4, mp3, etc)")
-    postprocessor_args: Optional[dict[str, any]] = Field(..., description = "ffmpeg args")
+    postprocessor_args: Optional[dict[str, str]] = Field(..., description = "ffmpeg args")
 
 class AsyncDownloadResponse(BaseModel):
     id: str = Field(..., description = "ID to check on results")
