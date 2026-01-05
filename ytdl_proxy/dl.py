@@ -42,7 +42,7 @@ def _download_sync(req: DownloadRequest, fid: str) -> str:
                 'preferredcodec': 'mp3',
                 'preferredquality': '320',
             }],
-            'outtmpl': f"out/{fid}",
+            'outtmpl': f"out/{fid}.%(ext)s",
             'noplaylist': True
         }
         if req.postprocessor_args is not None and len(req.postprocessor_args) > 0:
@@ -51,7 +51,7 @@ def _download_sync(req: DownloadRequest, fid: str) -> str:
         opts = {
             'format': 'bestvideo+bestaudio/best',
             'merge_output_format': 'mp4',
-            'outtmpl': f"out/{fid}",
+            'outtmpl': f"out/{fid}.%(ext)s",
             'noplaylist': True
         }
         
